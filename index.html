@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Olimpiada natijalari</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f1f4ff;--bg2:#dde5ff;--card:rgba(255,255,255,.74);--tx:#0f172a;--mu:#586079;--ln:rgba(99,102,241,.22);--gr:rgba(99,102,241,.09);--hd:rgba(99,102,241,.1);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#050917;--bg2:#101845;--card:rgba(16,24,58,.66);--tx:#e8ecff;--mu:#9aa6cc;--ln:rgba(129,140,248,.26);--gr:rgba(129,140,248,.09);--hd:rgba(129,140,248,.14);color-scheme:dark}}
+:root[data-theme=dark]{--bg:#050917;--bg2:#101845;--card:rgba(16,24,58,.66);--tx:#e8ecff;--mu:#9aa6cc;--ln:rgba(129,140,248,.26);--gr:rgba(129,140,248,.09);--hd:rgba(129,140,248,.14);color-scheme:dark}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--tx);background:radial-gradient(1200px 700px at 85% -10%,var(--bg2),transparent 60%),radial-gradient(900px 600px at -10% 40%,var(--bg2),transparent 60%),var(--bg);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--gr) 1px,transparent 1px),linear-gradient(90deg,var(--gr) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(#000,transparent 85%);mask-image:linear-gradient(#000,transparent 85%)}
+.blob{position:fixed;z-index:0;border-radius:9999px;filter:blur(90px);opacity:.38;pointer-events:none;animation:dr 18s ease-in-out infinite alternate}
+@keyframes dr{to{transform:translate(60px,40px) scale(1.15)}}
+@keyframes fl{to{transform:translateY(-12px) rotate(2deg)}}
+.fl{animation:fl 3.5s ease-in-out infinite alternate}
+@media(prefers-reduced-motion:reduce){.blob,.fl{animation:none}}
+.hd{font-family:'Space Grotesk',Inter,sans-serif}
+.card{background:var(--card);border:1px solid var(--ln);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:1.25rem}
+.mu{color:var(--mu)}
+.bar{height:6px;border-radius:9px;background:var(--ln);overflow:hidden}.bar i{display:block;height:100%;border-radius:9px}
+.sub{cursor:pointer;text-align:left;transition:transform .15s,border-color .15s}.sub:hover{transform:translateY(-2px)}
+.sub.on{border-color:var(--a,#6366f1);box-shadow:0 0 0 2px var(--a,#6366f1)}
+.chip{display:inline-flex;gap:.35rem;align-items:center;padding:.2rem .6rem;border-radius:9999px;font-size:.75rem;font-weight:500;background:hsl(var(--h) 80% 55%/.16);border:1px solid hsl(var(--h) 80% 55%/.4)}
+table{border-collapse:separate;border-spacing:0;width:100%}
+th{background:var(--hd);text-align:left;font-weight:600;font-size:.8rem;padding:.85rem .9rem;white-space:nowrap}
+td{padding:.75rem .9rem;border-top:1px solid var(--ln);font-size:.88rem;vertical-align:middle}
+tbody tr:hover td{background:var(--hd)}
+input,select,textarea{background:var(--card);color:var(--tx);border:1px solid var(--ln);border-radius:.8rem;padding:.6rem .9rem;font-size:.9rem;outline:none}
+input:focus-visible,select:focus-visible,.sub:focus-visible{outline:2px solid #6366f1;outline-offset:2px}
+.btn{padding:.55rem 1rem;border-radius:.8rem;border:1px solid var(--ln);background:var(--card);color:var(--tx);font-weight:500;font-size:.9rem;cursor:pointer;font-family:inherit}
+.btn.p{background:linear-gradient(90deg,#6366f1,#06b6d4);color:#fff;border-color:transparent}
+.btn:focus-visible,.ic:focus-visible{outline:2px solid #6366f1;outline-offset:2px}
+.role.on{border-color:#6366f1;box-shadow:0 0 0 2px #6366f1}
+.ic{cursor:pointer;padding:.2rem .45rem;border-radius:.5rem;border:1px solid var(--ln);background:var(--card);font-size:.85rem}
+label{display:block;font-size:.8rem;color:var(--mu)}label input,label select,label textarea{margin-top:.25rem}
+body:not(.t) .tonly{display:none!important}
+#toast{display:none;position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:70;background:var(--card);border:1px solid var(--ln);backdrop-filter:blur(14px);padding:.7rem 1.1rem;border-radius:.9rem;max-width:90vw;text-align:center;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="blob" style="width:420px;height:420px;background:#6366f1;top:-120px;left:-100px"></div>
+<div class="blob" style="width:380px;height:380px;background:#06b6d4;top:35%;right:-120px;animation-delay:-6s"></div>
+<div class="blob" style="width:360px;height:360px;background:#ec4899;bottom:-120px;left:25%;animation-delay:-11s"></div>
+
+<div id="lg" style="display:none" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-auto">
+ <div class="card p-6 sm:p-8 w-full max-w-sm text-center">
+  <div class="text-5xl fl" style="display:inline-block">🏆</div>
+  <h1 class="hd text-2xl font-bold mt-2">Olimpiada natijalari</h1>
+  <p class="mu text-sm mt-1 mb-5">Kim bo‘lib kirasiz?</p>
+  <div class="grid grid-cols-2 gap-3 mb-4"><button class="btn role on" data-r="s"><div class="text-3xl">👁️</div>Ko‘ruvchi</button><button class="btn role" data-r="t"><div class="text-3xl">🛠️</div>Admin</button></div>
+  <input id="pw" type="password" inputmode="numeric" autocomplete="off" placeholder="Parol" aria-label="Parol" class="w-full text-center mb-2">
+  <p id="le" class="text-xs mb-2" style="color:#f43f5e;min-height:1rem"></p>
+  <button id="go" class="btn p w-full">Kirish</button>
+ </div>
+</div>
+<div id="md" class="fixed inset-0 z-40 items-center justify-center p-4" style="display:none;background:rgba(3,6,20,.6)"></div>
+<div id="toast" role="status"></div>
+<main id="app" hidden class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+  <div class="hidden"><span id="who" class="chip" style="--h:250"></span><button id="out" class="btn">Chiqish</button></div>
+
+  <section class="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12 mb-10">
+    <div class="flex-1">
+      <h1 id="ht" class="hd text-4xl sm:text-6xl font-bold leading-tight" style="background:var(--bn,linear-gradient(90deg,#6366f1,#06b6d4,#ec4899));-webkit-background-clip:text;background-clip:text;color:transparent">Olimpiada natijalari</h1>
+      <p id="hp" class="mu mt-4 text-base sm:text-lg max-w-xl">2026-yil 9–11-sinf o‘quvchilarining fan olimpiadalari: maktab va tuman bosqichi natijalari.</p>
+    </div>
+    <svg class="fl w-44 sm:w-60 shrink-0" viewBox="0 0 200 200" aria-hidden="true">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fde047"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+      <radialGradient id="h"><stop offset="0" stop-color="#6366f1" stop-opacity=".5"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="100" cy="100" r="95" fill="url(#h)"/>
+      <path d="M62 54H42c0 26 10 38 30 42M138 54h20c0 26-10 38-30 42" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+      <path d="M60 36h80v44c0 30-18 50-40 50S60 110 60 80z" fill="url(#g)"/>
+      <rect x="92" y="128" width="16" height="22" fill="#f59e0b"/><rect x="68" y="150" width="64" height="16" rx="7" fill="#d97706"/>
+      <path d="M100 52l7 15 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2z" fill="#fff" opacity=".9"/>
+      <circle cx="34" cy="40" r="4" fill="#06b6d4"/><circle cx="168" cy="132" r="5" fill="#ec4899"/><circle cx="162" cy="30" r="3" fill="#fde047"/>
+    </svg>
+  </section>
+
+  <section id="stats" class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-10"></section>
+
+  <section class="mb-10">
+    <h2 id="h2s" class="hd text-xl sm:text-2xl font-bold mb-1">Fanlar bo‘yicha o‘rtacha maktab bosqichi foizi</h2>
+    <p class="mu text-sm mb-4">Fanni bosing — jadval shu fan bo‘yicha filtrlanadi.</p>
+    <div id="subs" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+  </section>
+
+  <section>
+    <div class="flex flex-col md:flex-row md:items-center gap-3 mb-4">
+      <h2 class="hd text-xl sm:text-2xl font-bold md:mr-auto"><span id="h2t">Natijalar jadvali</span> <span id="cnt" class="mu text-sm font-normal ml-2"></span></h2>
+      <input id="q" type="search" placeholder="Ism, fan yoki o‘qituvchi" aria-label="Qidirish" class="w-full md:w-64">
+      <select id="s" aria-label="Sinf"><option value="">Barcha sinflar</option><option>9</option><option>10</option><option>11</option></select>
+      <select id="o" aria-label="Saralash"><option value="n">Tartib raqami</option><option value="m">Maktab foizi bo‘yicha</option><option value="b">Tuman foizi bo‘yicha</option></select>
+    </div>
+    <div class="tonly flex flex-wrap items-center gap-2 mb-3"><button id="add" class="btn p">＋ O‘quvchi qo‘shish</button><button id="addf" class="btn">＋ Fan qo‘shish</button><button id="cfg" class="btn">⚙️ Sozlamalar</button><button id="sv" class="btn">💾 Saqlash</button><span id="dirty" class="mu text-xs"></span></div>
+    <div class="card overflow-hidden"><div class="overflow-x-auto">
+      <table style="min-width:860px"><thead><tr><th>№</th><th>O‘quvchi</th><th>Fan</th><th>O‘qituvchi</th><th id="th1" style="min-width:170px">Maktab bosqichi</th><th id="th2">Tuman</th><th id="th3">%</th><th class="tonly">Amallar</th></tr></thead><tbody id="tb"></tbody></table>
+    </div></div>
+    <p id="nt" class="mu text-xs mt-3"></p>
+  </section>
+</main>
+
+<script>
+let MAX=50;
+let S={bio:['Biologiya','🧬',150],huq:['Davlat va huquq asoslari','⚖️',35],fiz:['Fizika','⚛️',215],geo:['Geografiya','🌍',165],inf:['Informatika va axborot texnologiyalari','💻',255],ing:['Ingliz tili','🗣️',300],kim:['Kimyo','🧪',275],mat:['Matematika','📐',335],ona:['Ona tili va adabiyot','📖',20],tar:['Tarix','🏛️',45]};
+const raw=`Shamsiddinova Mashkuraxon Kamoliddin qizi|11|bio|Soliyeva Jamila Roxmonjonovna|30|11.4|23
+Akbarjonova Mumtozabegim Maxamadjon qizi|10|bio|Soliyeva Jamila Roxmonjonovna|31|15.5|31
+Jo'rayeva Muslima Saydaxmat qizi|9|huq|Orziyev Otabek Istamovich|38|41|82
+Turapova Sabina Rustam qizi|11|huq|Orziyev Otabek Istamovich|32|37|74
+Asatullayeva Ruxsora Hikmatilla qizi|10|huq|Orziyev Otabek Istamovich|28|27|54
+Sayfullayev Diyor Elyor o'g'li|9|fiz|Atanova Gullala Abduvaitovna|31.8|15|30
+Shukurova Zebo Shokirjonovna|11|fiz|Jumaboyeva Shohina Po'lat qizi|33.7|4.4|9
+Qulmamatova Nodira Maruf qizi|10|fiz|Atanova Gullala Abduvaitovna|31.9|15|30
+Saydimanonova Nodiraxon Saidaziz qizi|9|geo|Xikmatova Munojat Ismatillayevna|35.4|15.8|32
+Narmetov Ramziddin Muzaffar o'g'li|10|geo|Xikmatova Munojat Ismatillayevna|36.6|15.5|31
+Ergashev Biloliddin Erkin o'g'li|9|inf|Ismailova Unsinoy Dosmaxanbet qizi|28.2|13.1|26
+Sultonov Muhammadali Sanjar o'g'li|11|inf|Ismailova Unsinoy Dosmaxanbet qizi|28.9|10.9|22
+Gayratov Ibrohim donyor o'g'li|10|inf|Ismailova Unsinoy Dosmaxanbet qizi|33|15.3|31
+Saydimanonova Nodiraxon Saidaziz qizi|9|ing|Mamatkarimova Vasila Raximovna|39|30.6|61
+Sayfullayev Diyor Elyor o'g'li|9|ing|Mamatkarimova Vasila Raximovna|42.2|19.2|38
+Shukurova Zebo Shokirjonovna|11|ing|Shamsiddinova Inobat Latifovna|39.4|19.8|40
+Obidova Muslima Shaykat qizi|11|ing|Shamsiddinova Inobat Latifovna|41.1|33.8|68
+G'aniyeva Madina Faxriddin qizi|10|ing|Duschanova Feruza Baxtiyarovna|40.5|37.3|75
+Yunusova Odinabonu Xurshid qizi|9|kim|Ergashev Ulug'bek Djurayevich|31.6|15.6|31
+Saitkulova Nigina Azizovna|11|kim|Ergashev Ulug'bek Djurayevich|32.9|16.8|34
+Xusanov Ibrohimbek Tursunboy o'g'li|10|kim|Ergashev Ulug'bek Djurayevich|33.6|20.6|41
+Xaidmurodov Bekzod Sherbek o'g'li|9|mat|To'raqulova Nilufar To'lqin qizi|31.8|16.3|33
+Shokirov Saidanvar Shuxratilla o'g'li|9|mat|To'raqulova Nilufar To'lqin qizi|31.7|19|38
+Qurbonova Sabina Nizomjon qizi|11|mat|Ergasheva Fazilat Xurramovna|37.8|23.9|48
+Norboyev Uchqun Sayfiddin o'g'li|11|mat|Ergasheva Fazilat Xurramovna|36.8|15.9|32
+Abdunabiyeva Zeboxon Zafar qizi|10|mat|Olimova Ziyodaxon Abdurasul qizi|37.4|15.3|31
+Rustamova Shaxrizoda Farux qizi|10|mat|Olimova Ziyodaxon Abdurasul qizi|40.4|7.5|15
+Xaitova Nazokat Kamoliddin qizi|9|ona|Djabbarova Saodat Kurbonaliyevna|35|18.2|36
+Koldorboyeva Durdona Ilyos qizi|11|ona|Salamova Muxayyo Abdullayevna|38.6|27.5|55
+Mirkobilova Shahnoza Mirkomil qizi|10|ona|Djabbarova Saodat Kurbonaliyevna|32|17.1|34
+Ergashev Biloliddin Erkin o'g'li|9|tar|Aliqulova Sevara Choriyevna|28.2|18.2|36
+Zoirov Azamat Murodion o'g'li|11|tar|Moyliyeva Gulruk Kuzimuradovna|39.7|18.5|37
+Abdig'ofirov Toxir Daxron o'g'li|10|tar|Aliqulova Sevara Choriyevna|30.4|11.3|23
+Toshpo'latov Ulug'bek Farxod o'g'li|10|tar|Aliqulova Sevara Choriyevna|21.3|17.6|35`;
+const fx=t=>t.replace(/'/g,'‘');
+const E=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let R=raw.split('\n').map(l=>{const a=l.split('|');return{name:fx(a[0]),s:a[1],k:a[2],t:fx(a[3]),m:+a[4],bal:a[5],pc:a[6]}});
+const KEY='olimp_v1',PW={s:'1234',t:'0222'},$=id=>document.getElementById(id);
+const P=x=>x.m/MAX*100,avg=a=>a.length?a.reduce((t,x)=>t+P(x),0)/a.length:0;
+const col=p=>p>=70?'#10b981':p>=55?'#06b6d4':p>=45?'#f59e0b':'#f43f5e';
+let role='',pick='s',dirty=false,ref=null,st={k:'',q:'',s:'',o:'n'};
+let C=null;
+const DC={title:'Olimpiada natijalari',desc:'2026-yil 9–11-sinf o‘quvchilarining fan olimpiadalari: maktab va tuman bosqichi natijalari.',sec:'Fanlar bo‘yicha o‘rtacha maktab bosqichi foizi',tbl:'Natijalar jadvali',note:'',sch:'Maktab bosqichi',dist:'Tuman',distp:'%',max:50,theme:0,pa:'0222',pv:'1234'};
+let CF={...DC};
+const PD=['9–11-sinf o‘quvchilarining fan olimpiadalaridagi ballari: maktab bosqichi foizi, keyingi bosqich bali va o‘qituvchilar bir joyda.','9–11-sinf o‘quvchilarining fan olimpiadalari: maktab va tuman bosqichi natijalari.','9–11-sinf o‘quvchilarining fan olimpiadalari'];
+const pack=()=>JSON.stringify({subs:S,rows:R,cnt:C,cfg:CF});
+function apply(j){try{const o=JSON.parse(j);if(!o.subs||!o.rows)return;S=o.subs;R=o.rows;C=o.cnt==null?null:o.cnt;CF={...DC,...(o.cfg||{})};if(PD.includes(CF.desc))CF.desc=DC.desc;MAX=CF.max;if(role){build();render()}}catch(e){}}
+try{const l=localStorage.getItem(KEY);if(l)apply(l)}catch(e){}
+(async()=>{try{const db=window.claude&&await claude.use('db');if(!db)return;ref=db.doc('olympiad/main');const sn=await ref.get();if(sn.exists)apply(sn.data().json);ref.onSnapshot(s=>{if(s.exists&&!(role=='t'&&dirty))apply(s.data().json)})}catch(e){}})();
+const mark=()=>{$('dirty').textContent=dirty?'● Saqlanmagan o‘zgarishlar bor':'';$('sv').classList.toggle('p',dirty)};
+let tm;const toast=m=>{const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(tm);tm=setTimeout(()=>t.style.display='none',3800)};
+let at;const touch=()=>{dirty=true;mark();build();render();clearTimeout(at);at=setTimeout(save,900)};
+async function save(){let m='Shu brauzerda saqlandi (boshqa qurilmalarga yetib bormaydi)';
+  try{localStorage.setItem(KEY,pack())}catch(e){}
+  if(ref){try{await ref.set({json:pack()});m='Saqlandi ✓ Barcha qurilmalarda yangilanadi'}catch(e){m='Umumiy saqlash uchun Claude hisobingiz (egasi) bilan kiring — hozir faqat shu brauzerda saqlandi'}}
+  dirty=false;mark();toast(m)}
+const stat=(v,l,sub,x='')=>`<div class="card p-4 sm:p-5 relative">${x}<div class="hd text-3xl sm:text-4xl font-bold">${v}</div><div class="font-medium mt-1">${l}</div><div class="mu text-xs mt-1">${sub}</div></div>`;
+const TH=['linear-gradient(90deg,#6366f1,#06b6d4,#ec4899)','linear-gradient(90deg,#10b981,#06b6d4,#6366f1)','linear-gradient(90deg,#f59e0b,#ef4444,#ec4899)','linear-gradient(90deg,#8b5cf6,#ec4899,#f59e0b)'],THN=['Ko‘k – moviy – pushti','Yashil – moviy – ko‘k','Sariq – qizil – pushti','Binafsha – pushti – sariq'];
+function skin(){$('ht').textContent=CF.title;document.title=CF.title;$('hp').textContent=CF.desc;$('h2s').textContent=CF.sec;$('h2t').textContent=CF.tbl;
+  $('nt').textContent=CF.note||`Maktab foizi = maktab bali ÷ ${MAX} × 100. ${CF.dist} va ${CF.distp} ustunlari asl jadvaldagidek berilgan; bo‘sh joylar «—» bilan ko‘rsatilgan.`;
+  document.documentElement.style.setProperty('--bn',TH[CF.theme]||TH[0]);
+  $('th1').textContent=CF.sch;$('th2').textContent=CF.dist;$('th3').textContent=CF.distp;const op=$('o').options;op[1].textContent=CF.sch+' foizi bo‘yicha';op[2].textContent=CF.dist+' foizi bo‘yicha'}
+function build(){
+  skin();
+  $('stats').innerHTML=stat(C==null?new Set(R.map(x=>x.name)).size:C,'O‘quvchi',C==null?'jami ishtirokchilar':'qo‘lda kiritilgan son','<button class="tonly ic" id="cn" title="O‘quvchilar sonini o‘zgartirish" style="position:absolute;top:.6rem;right:.6rem">✏️</button>')+stat(Object.keys(S).length,'Fan','olimpiada o‘tkazilgan')+stat(avg(R).toFixed(1)+'%','O‘rtacha maktab foizi','barcha natijalar bo‘yicha');
+  $('subs').innerHTML=Object.entries(S).map(([k,v])=>{const r=R.filter(x=>x.k==k),a=avg(r);return`<div class="sub card p-4 relative" tabindex="0" role="button" data-k="${k}" style="--a:hsl(${v[2]} 80% 55%)"><span class="tonly ic" data-f="${k}" title="Fanni tahrirlash" style="position:absolute;top:.6rem;right:2.6rem">✏️</span><span class="tonly ic" data-d="${k}" title="Fanni o‘chirish" style="position:absolute;top:.6rem;right:.6rem">✕</span><div class="text-3xl">${E(v[1])}</div><div class="font-semibold text-sm mt-2 leading-snug" style="min-height:2.5rem">${E(v[0])}</div><div class="flex items-baseline justify-between mt-2"><span class="hd text-xl font-bold">${a.toFixed(1)}%</span><span class="mu text-xs">${r.length} ta</span></div><div class="bar mt-2"><i style="width:${a}%;background:hsl(${v[2]} 80% 55%)"></i></div></div>`}).join('')||'<p class="mu text-sm">Hozircha fan yo‘q.</p>';
+}
+function render(){
+  if(st.k&&!S[st.k])st.k='';
+  let r=R.map((x,i)=>({...x,i})).filter(x=>(!st.k||x.k==st.k)&&(!st.s||x.s==st.s)&&(x.name+' '+x.t+' '+(S[x.k]||[''])[0]).toLowerCase().includes(st.q));
+  r.sort(st.o=='n'?(a,b)=>a.i-b.i:st.o=='m'?(a,b)=>P(b)-P(a):(a,b)=>(+b.pc||0)-(+a.pc||0));
+  $('tb').innerHTML=r.map((x,n)=>{const v=S[x.k]||['—','❓',0],p=P(x),c=col(p);return`<tr><td class="mu">${n+1}</td><td><div class="font-semibold">${E(x.name)}</div><div class="mu text-xs">${E(x.s)}-sinf</div></td><td><span class="chip" style="--h:${v[2]}">${E(v[1])} ${E(v[0])}</span></td><td class="mu">${E(x.t)}</td><td><div class="flex items-baseline gap-2"><b>${x.m}</b><span class="hd font-bold" style="color:${c}">${p.toFixed(1)}%</span></div><div class="bar mt-1.5"><i style="width:${p}%;background:${c}"></i></div></td><td>${E(x.bal)||'—'}</td><td class="font-semibold">${x.pc?E(x.pc)+'%':'—'}</td><td class="tonly" style="white-space:nowrap"><button class="ic" data-e="${x.i}" title="Tahrirlash">✏️</button> <button class="ic" data-x="${x.i}" title="O‘chirish">🗑️</button></td></tr>`}).join('')||'<tr><td colspan="8" class="mu" style="text-align:center;padding:2rem">Hech narsa topilmadi. Qidiruv yoki filtrni o‘zgartiring.</td></tr>';
+  $('cnt').textContent=r.length+' ta natija';
+  document.querySelectorAll('.sub').forEach(b=>b.classList.toggle('on',b.dataset.k==st.k));
+}
+const md=$('md'),shut=()=>{md.style.display='none'};
+function open(h){md.innerHTML='<div class="card p-5 w-full max-w-md" style="max-height:90vh;overflow:auto">'+h+'</div>';md.style.display='flex';md.querySelectorAll('.cx').forEach(b=>b.onclick=shut);const f=md.querySelector('input');if(f)f.focus()}
+function ask(msg,fn){open(`<p class="mb-4">${msg}</p><div class="flex justify-end gap-2"><button class="btn cx">Yo‘q</button><button class="btn p" id="yes">Ha, o‘chirish</button></div>`);$('yes').onclick=()=>{shut();fn()}}
+function form(i){
+  const x=i>=0?R[i]:{name:'',s:'9',k:st.k||Object.keys(S)[0],t:'',m:'',bal:'',pc:''};
+  open(`<h3 class="hd text-lg font-bold mb-3">${i>=0?'Natijani tahrirlash':'O‘quvchi qo‘shish'}</h3><div class="grid gap-3">
+  <label>Ism familiya<input id="f_n" class="w-full" value="${E(x.name)}"></label>
+  <div class="grid grid-cols-2 gap-3"><label>Sinf<select id="f_s" class="w-full">${[9,10,11].map(v=>`<option ${v==x.s?'selected':''}>${v}</option>`).join('')}</select></label><label>Fan<select id="f_k" class="w-full">${Object.entries(S).map(([k,v])=>`<option value="${k}" ${k==x.k?'selected':''}>${E(v[0])}</option>`).join('')}</select></label></div>
+  <label>O‘qituvchi<input id="f_t" class="w-full" value="${E(x.t)}"></label>
+  <div class="grid grid-cols-3 gap-3"><label>Maktab bali<input id="f_m" type="number" step="0.1" min="0" max="${MAX}" class="w-full" value="${x.m}"></label><label>${E(CF.dist)}<input id="f_b" type="number" step="0.1" class="w-full" value="${E(x.bal)}"></label><label>${E(CF.distp)}<input id="f_p" type="number" class="w-full" value="${E(x.pc)}"></label></div></div>
+  <p id="fe" class="text-xs mt-2" style="color:#f43f5e"></p>
+  <div class="flex justify-end gap-2 mt-4"><button class="btn cx">Bekor qilish</button><button class="btn p" id="ok">${i>=0?'Yangilash':'Qo‘shish'}</button></div>`);
+  $('ok').onclick=()=>{const n=$('f_n').value.trim(),m=parseFloat($('f_m').value),bl=$('f_b').value.trim();
+    if(!n)return $('fe').textContent='Ism familiyani kiriting.';
+    if(!(m>=0&&m<=MAX))return $('fe').textContent='Maktab bali 0 dan '+MAX+' gacha bo‘lishi kerak.';
+    const o={name:n,s:$('f_s').value,k:$('f_k').value,t:$('f_t').value.trim(),m,bal:bl,pc:$('f_p').value.trim()||(bl?String(Math.round(bl/MAX*100)):'')};
+    if(i>=0)R[i]=o;else R.push(o);shut();touch()}
+}
+function subForm(k){const v=k?S[k]:['','📚'];
+  open(`<h3 class="hd text-lg font-bold mb-3">${k?'Fanni tahrirlash':'Fan qo‘shish'}</h3><div class="grid grid-cols-3 gap-3"><label style="grid-column:span 2">Fan nomi<input id="g_n" class="w-full" value="${E(v[0])}"></label><label>Belgi<input id="g_e" class="w-full text-center" value="${E(v[1])}"></label></div><p id="fe" class="text-xs mt-2" style="color:#f43f5e"></p><div class="flex justify-end gap-2 mt-4"><button class="btn cx">Bekor qilish</button><button class="btn p" id="ok">Qo‘shish</button></div>`);
+  $('ok').onclick=()=>{const n=$('g_n').value.trim();if(!n)return $('fe').textContent='Fan nomini kiriting.';
+    if(k){S[k][0]=n;S[k][1]=$('g_e').value.trim()||'📚'}else S['x'+Date.now()]=[n,$('g_e').value.trim()||'📚',Math.floor(Math.random()*360)];shut();touch()}
+}
+const delStu=i=>ask(`«${E(R[i].name)}» (${E((S[R[i].k]||['—'])[0])}) natijasi o‘chiriladi.`,()=>{R.splice(i,1);touch()});
+const delSub=k=>ask(`«${E(S[k][0])}» fani va unga tegishli ${R.filter(x=>x.k==k).length} ta natija o‘chiriladi.`,()=>{delete S[k];R=R.filter(x=>x.k!=k);touch()});
+function cntForm(){const a=new Set(R.map(x=>x.name)).size;
+  open(`<h3 class="hd text-lg font-bold mb-3">O‘quvchilar soni</h3><label>Soni<input id="c_n" type="number" min="0" class="w-full" value="${C==null?'':C}" placeholder="${a}"></label><p class="mu text-xs mt-2">Jadvalda ${a} ta o‘quvchi bor. Maydonni bo‘sh qoldirsangiz, son jadvaldan avtomatik hisoblanadi.</p><p id="fe" class="text-xs mt-2" style="color:#f43f5e"></p><div class="flex justify-end gap-2 mt-4"><button class="btn cx">Bekor qilish</button><button class="btn p" id="ok">Yangilash</button></div>`);
+  $('ok').onclick=()=>{const v=$('c_n').value.trim();if(v==='')C=null;else{const n=parseInt(v,10);if(!(n>=0))return $('fe').textContent='0 yoki undan katta son kiriting.';C=n}shut();touch()}}
+$('stats').onclick=e=>{if(e.target.closest('#cn'))cntForm()};
+document.querySelectorAll('.role').forEach(b=>b.onclick=()=>{pick=b.dataset.r;document.querySelectorAll('.role').forEach(x=>x.classList.toggle('on',x==b));$('pw').focus()});
+function login(){
+  if($('pw').value===(pick=='t'?CF.pa:CF.pv)){role=pick;$('lg').style.display='none';$('app').hidden=false;document.body.classList.toggle('t',role=='t');$('who').textContent=role=='t'?'🛠️ Admin':'👁️ Ko‘ruvchi';$('pw').value='';$('le').textContent='';build();render();mark()}
+  else{$('le').textContent='Parol noto‘g‘ri. Qayta urinib ko‘ring.';$('pw').select()}
+}
+role='s';$('app').hidden=false;build();render();mark();$('go').onclick=login;$('pw').onkeydown=e=>{if(e.key=='Enter')login()};
+const lo=()=>{if(dirty)return location.reload();role='';document.body.classList.remove('t');$('app').hidden=true;$('lg').style.display='flex';$('pw').focus()};
+$('out').onclick=()=>dirty?ask('Saqlanmagan o‘zgarishlar yo‘qoladi. Chiqasizmi?',lo):lo();
+$('add').onclick=()=>Object.keys(S).length?form(-1):toast('Avval fan qo‘shing');
+$('addf').onclick=()=>subForm();$('sv').onclick=save;
+$('tb').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.e)form(+b.dataset.e);if(b.dataset.x)delStu(+b.dataset.x)};
+$('subs').onclick=e=>{const f=e.target.closest('[data-f]');if(f)return subForm(f.dataset.f);const d=e.target.closest('[data-d]');if(d)return delSub(d.dataset.d);const c=e.target.closest('.sub');if(c){st.k=st.k==c.dataset.k?'':c.dataset.k;render()}};
+$('subs').onkeydown=e=>{if(e.key=='Enter'&&e.target.classList.contains('sub'))e.target.click()};
+function cfgForm(){
+  const f=(id,l,v,t='text')=>`<label>${l}<input id="${id}" type="${t}" class="w-full" value="${E(v)}"></label>`;
+  open(`<h3 class="hd text-lg font-bold mb-3">Sozlamalar</h3><div class="grid gap-3">${f('s_t','Banner sarlavhasi',CF.title)}<label>Banner matni<textarea id="s_d" rows="3" class="w-full">${E(CF.desc)}</textarea></label>${f('s_s','Fanlar bo‘limi sarlavhasi',CF.sec)}${f('s_b','Jadval sarlavhasi',CF.tbl)}${f('s_n','Jadval ostidagi izoh (bo‘sh = avtomatik)',CF.note)}<div class="grid grid-cols-3 gap-3">${f('s_h1','Maktab ustuni',CF.sch)}${f('s_h2','Tuman ustuni',CF.dist)}${f('s_h3','Foiz ustuni',CF.distp)}</div>
+  <div class="grid grid-cols-2 gap-3"><label>Banner rangi<select id="s_c" class="w-full">${THN.map((n,i)=>`<option value="${i}" ${i==CF.theme?'selected':''}>${n}</option>`).join('')}</select></label>${f('s_m','Maksimal ball (maktab)',CF.max,'number')}</div>
+  <div class="grid grid-cols-2 gap-3">${f('s_pa','Admin paroli',CF.pa)}${f('s_pv','Ko‘ruvchi paroli',CF.pv)}</div></div>
+  <p id="fe" class="text-xs mt-2" style="color:#f43f5e"></p><div class="flex justify-end gap-2 mt-4"><button class="btn cx">Bekor qilish</button><button class="btn p" id="ok">Yangilash</button></div>`);
+  $('ok').onclick=()=>{const g=id=>$(id).value.trim(),m=parseFloat(g('s_m'));
+    if(!g('s_t'))return $('fe').textContent='Banner sarlavhasini kiriting.';
+    if(!(m>0))return $('fe').textContent='Maksimal ball 0 dan katta bo‘lishi kerak.';
+    if(g('s_pa').length<3||g('s_pv').length<3)return $('fe').textContent='Parol kamida 3 belgidan iborat bo‘lsin.';
+    CF={title:g('s_t'),desc:g('s_d'),sec:g('s_s'),tbl:g('s_b'),note:g('s_n'),sch:g('s_h1')||DC.sch,dist:g('s_h2')||DC.dist,distp:g('s_h3')||DC.distp,max:m,theme:+g('s_c'),pa:g('s_pa'),pv:g('s_pv')};MAX=m;shut();touch()}
+}
+$('cfg').onclick=cfgForm;
+document.onkeydown=e=>{if(e.key=='Escape')shut()};
+$('q').oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
+$('s').onchange=e=>{st.s=e.target.value;render()};
+$('o').onchange=e=>{st.o=e.target.value;render()};
+</script>
+</body>
+</html>
