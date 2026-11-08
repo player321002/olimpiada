@@ -106,7 +106,7 @@ body:not(.t) .tonly{display:none!important}
 <script>
 let MAX=50;
 let S={bio:['Biologiya','🧬',150],huq:['Davlat va huquq asoslari','⚖️',35],fiz:['Fizika','⚛️',215],geo:['Geografiya','🌍',165],inf:['Informatika va axborot texnologiyalari','💻',255],ing:['Ingliz tili','🗣️',300],kim:['Kimyo','🧪',275],mat:['Matematika','📐',335],ona:['Ona tili va adabiyot','📖',20],tar:['Tarix','🏛️',45]};
-const raw=`Shamsiddinova Mashkuraxon Kamoliddin qizi|11|bio|Soliyeva Jamila Roxmonjonovna|30|11.4|23
+const raw=`Shamsiddinova Mashkuraxon Kamoliddin qizi|11|bio|Soliyeva Jamila Roxmonjonovna|34|11.4|23
 Akbarjonova Mumtozabegim Maxamadjon qizi|10|bio|Soliyeva Jamila Roxmonjonovna|31|15.5|31
 Jo'rayeva Muslima Saydaxmat qizi|9|huq|Orziyev Otabek Istamovich|38|41|82
 Turapova Sabina Rustam qizi|11|huq|Orziyev Otabek Istamovich|32|37|74
@@ -170,7 +170,7 @@ function skin(){$('ht').textContent=CF.title;document.title=CF.title;$('hp').tex
   $('th1').textContent=CF.sch;$('th2').textContent=CF.dist;$('th3').textContent=CF.distp;const op=$('o').options;op[1].textContent=CF.sch+' foizi bo‘yicha';op[2].textContent=CF.dist+' foizi bo‘yicha'}
 function build(){
   skin();
-  $('stats').innerHTML=stat(C==null?new Set(R.map(x=>x.name)).size:C,'O‘quvchi',C==null?'jami ishtirokchilar':'qo‘lda kiritilgan son','<button class="tonly ic" id="cn" title="O‘quvchilar sonini o‘zgartirish" style="position:absolute;top:.6rem;right:.6rem">✏️</button>')+stat(Object.keys(S).length,'Fan','olimpiada o‘tkazilgan')+stat(avg(R).toFixed(1)+'%','O‘rtacha maktab foizi','barcha natijalar bo‘yicha');
+  $('stats').innerHTML=stat(34,'O‘quvchi','jami ishtirokchilar','<button class="tonly ic" id="cn" title="O‘quvchilar sonini o‘zgartirish" style="position:absolute;top:.6rem;right:.6rem">✏️</button>')+stat(Object.keys(S).length,'Fan','olimpiada o‘tkazilgan')+stat(avg(R).toFixed(1)+'%','O‘rtacha maktab foizi','barcha natijalar bo‘yicha');
   $('subs').innerHTML=Object.entries(S).map(([k,v])=>{const r=R.filter(x=>x.k==k),a=avg(r);return`<div class="sub card p-4 relative" tabindex="0" role="button" data-k="${k}" style="--a:hsl(${v[2]} 80% 55%)"><span class="tonly ic" data-f="${k}" title="Fanni tahrirlash" style="position:absolute;top:.6rem;right:2.6rem">✏️</span><span class="tonly ic" data-d="${k}" title="Fanni o‘chirish" style="position:absolute;top:.6rem;right:.6rem">✕</span><div class="text-3xl">${E(v[1])}</div><div class="font-semibold text-sm mt-2 leading-snug" style="min-height:2.5rem">${E(v[0])}</div><div class="flex items-baseline justify-between mt-2"><span class="hd text-xl font-bold">${a.toFixed(1)}%</span><span class="mu text-xs">${r.length} ta</span></div><div class="bar mt-2"><i style="width:${a}%;background:hsl(${v[2]} 80% 55%)"></i></div></div>`}).join('')||'<p class="mu text-sm">Hozircha fan yo‘q.</p>';
 }
 function render(){
