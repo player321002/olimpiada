@@ -80,7 +80,7 @@ body:not(.t) .tonly{display:none!important}
     </svg>
   </section>
 
-  <section id="stats" class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-10"></section>
+  <section id="stats" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-10"></section>
 
   <section class="mb-10">
     <h2 id="h2s" class="hd text-xl sm:text-2xl font-bold mb-1">Fanlar bo‘yicha o‘rtacha maktab bosqichi foizi</h2>
@@ -170,7 +170,7 @@ function skin(){$('ht').textContent=CF.title;document.title=CF.title;$('hp').tex
   $('th1').textContent=CF.sch;$('th2').textContent=CF.dist;$('th3').textContent=CF.distp;const op=$('o').options;op[1].textContent=CF.sch+' foizi bo‘yicha';op[2].textContent=CF.dist+' foizi bo‘yicha'}
 function build(){
   skin();
-  $('stats').innerHTML=stat(34,'O‘quvchi','jami ishtirokchilar','<button class="tonly ic" id="cn" title="O‘quvchilar sonini o‘zgartirish" style="position:absolute;top:.6rem;right:.6rem">✏️</button>')+stat(Object.keys(S).length,'Fan','olimpiada o‘tkazilgan')+stat(avg(R).toFixed(1)+'%','O‘rtacha maktab foizi','barcha natijalar bo‘yicha');
+  $('stats').innerHTML=stat(34,'O‘quvchi','jami ishtirokchilar','<button class="tonly ic" id="cn" title="O‘quvchilar sonini o‘zgartirish" style="position:absolute;top:.6rem;right:.6rem">✏️</button>')+stat(Object.keys(S).length,'Fan','olimpiada o‘tkazilgan');
   $('subs').innerHTML=Object.entries(S).map(([k,v])=>{const r=R.filter(x=>x.k==k),a=avg(r);return`<div class="sub card p-4 relative" tabindex="0" role="button" data-k="${k}" style="--a:hsl(${v[2]} 80% 55%)"><span class="tonly ic" data-f="${k}" title="Fanni tahrirlash" style="position:absolute;top:.6rem;right:2.6rem">✏️</span><span class="tonly ic" data-d="${k}" title="Fanni o‘chirish" style="position:absolute;top:.6rem;right:.6rem">✕</span><div class="text-3xl">${E(v[1])}</div><div class="font-semibold text-sm mt-2 leading-snug" style="min-height:2.5rem">${E(v[0])}</div><div class="flex items-baseline justify-between mt-2"><span class="hd text-xl font-bold">${a.toFixed(1)}%</span><span class="mu text-xs">${r.length} ta</span></div><div class="bar mt-2"><i style="width:${a}%;background:hsl(${v[2]} 80% 55%)"></i></div></div>`}).join('')||'<p class="mu text-sm">Hozircha fan yo‘q.</p>';
 }
 function render(){
